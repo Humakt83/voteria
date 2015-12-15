@@ -3,6 +3,7 @@ package fi.ukkosnetti.voteria.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -18,7 +19,7 @@ public class Voter {
 	private String ip;
 	
 	@ManyToOne
-	@Column(updatable=false, nullable=false)
+	@JoinColumn(name = "ballot")
 	private Ballot ballot;
 
 	public Long getId() {
