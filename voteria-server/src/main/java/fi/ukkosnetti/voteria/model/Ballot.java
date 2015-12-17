@@ -1,12 +1,15 @@
 package fi.ukkosnetti.voteria.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 @Entity
 public class Ballot {
@@ -19,18 +22,18 @@ public class Ballot {
 	
 	private String creatorIp;
 
-	@OneToMany(mappedBy="ballot")
+	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
 	private Set<BallotOption> options;
 	
-	@OneToMany(mappedBy="ballot")
+	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
 	private Set<Voter> voters = new HashSet<>();
+	
+	private Date created;
+	
+	private Date ends;
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -63,6 +66,23 @@ public class Ballot {
 
 	public void setVoters(Set<Voter> voters) {
 		this.voters = voters;
+	}
+	
+	public Date getCreated() {
+		return created;
+	}
+	
+	@PrePersist
+	private void setCreated() {
+		created = new Date();
+	}
+	
+	public Date getEnds() {
+		return ends;
+	}
+	
+	public void setEnds(Date ends) {
+		this.ends = ends;
 	}
 	
 }

@@ -12,7 +12,7 @@ public class BallotOption {
 	
 	private String optionName;
 	
-	private Integer votes;
+	private Long votes;
 	
 	@ManyToOne
 	private Ballot ballot;
@@ -33,11 +33,11 @@ public class BallotOption {
 		this.optionName = optionName;
 	}
 
-	public Integer getVotes() {
+	public Long getVotes() {
 		return votes;
 	}
 
-	public void setVotes(Integer votes) {
+	public void setVotes(Long votes) {
 		this.votes = votes;
 	}
 

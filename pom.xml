@@ -17,5 +17,6 @@
 	<modules>
 		<module>voteria-client</module>
 		<module>voteria-server</module>
+		<module>voteria-common</module>
 	</modules>
 </project>

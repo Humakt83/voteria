@@ -6,4 +6,5 @@ import fi.ukkosnetti.voteria.model.BallotOption;
 
 public interface BallotOptionRepository extends CrudRepository<BallotOption, Long> {
 
+	
 }
