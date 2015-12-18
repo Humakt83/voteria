@@ -1,9 +1,13 @@
 package fi.ukkosnetti.voteria.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+
+import fi.ukkosnetti.voteria.client.ballot.BallotPopup;
 
 public class Voteria implements EntryPoint {
 
@@ -15,7 +19,13 @@ public class Voteria implements EntryPoint {
 	}
 
 	private Button createNewBallotButton() {
-		return new Button("New Ballot");
+		return new Button("New Ballot", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				new BallotPopup().show();
+			}
+		});
 	}
 	
 	private TextBox searchBox() {

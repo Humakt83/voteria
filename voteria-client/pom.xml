@@ -19,6 +19,11 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>fi.ukkosnetti</groupId>
+			<artifactId>voteria-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
