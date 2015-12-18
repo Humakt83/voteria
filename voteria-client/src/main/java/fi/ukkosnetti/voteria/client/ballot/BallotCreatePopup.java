@@ -11,12 +11,17 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 
-public class BallotPopup extends DialogBox {
+import fi.ukkosnetti.voteria.client.rest.BallotRestService;
+import fi.ukkosnetti.voteria.client.rest.RestResultHandler;
+import fi.ukkosnetti.voteria.common.dto.BallotCreate;
+import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
+
+public class BallotCreatePopup extends DialogBox implements RestResultHandler<Long> {
 	
 	private TextBox title = new TextBox();
 	private DateBox endDate = new DateBox();
 	
-	public BallotPopup() {
+	public BallotCreatePopup() {
 		super();
 		init();
 	}
@@ -50,13 +55,26 @@ public class BallotPopup extends DialogBox {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				BallotPopup.this.hide();
+				BallotCreatePopup.this.hide();
 			}
 		}));
-		Button submitButton = new Button("Submit");
+		Button submitButton = new Button("Submit", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				BallotCreate dto = new BallotCreateDTO();
+				dto.setEnds(endDate.getValue());
+				dto.setTitle(title.getText());
+				BallotRestService.createBallot(dto, BallotCreatePopup.this);
+			}
+		});
 		submitButton.setEnabled(false);
 		panel.add(submitButton);
 		return panel;
+	}
+
+	@Override
+	public void handleResult(Long result) {
 	}
 
 }

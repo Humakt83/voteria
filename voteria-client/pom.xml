@@ -7,10 +7,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>voteria-client</artifactId>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.7</java.version>
-		<gwt.version>2.7.0</gwt.version>
 	</properties>
 
 	<dependencies>

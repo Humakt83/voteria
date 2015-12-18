@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>voteria-server</artifactId>
-
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 		<outputFolder>${project.build.directory}/${project.artifactId}</outputFolder>

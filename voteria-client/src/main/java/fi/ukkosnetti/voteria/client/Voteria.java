@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import fi.ukkosnetti.voteria.client.ballot.BallotPopup;
+import fi.ukkosnetti.voteria.client.ballot.BallotCreatePopup;
 
 public class Voteria implements EntryPoint {
 
@@ -23,7 +23,7 @@ public class Voteria implements EntryPoint {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				new BallotPopup().show();
+				new BallotCreatePopup().show();
 			}
 		});
 	}

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
+import fi.ukkosnetti.voteria.common.dto.BallotCreate;
 import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.service.BallotService;
 
@@ -23,7 +23,7 @@ public class BallotController {
 	private BallotService service;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody Long create(@RequestBody BallotCreateDTO dto, HttpServletRequest request) {
+	public @ResponseBody Long create(@RequestBody BallotCreate dto, HttpServletRequest request) {
 		return service.create(dto, request.getRemoteAddr());
 	}
 	

@@ -14,9 +14,13 @@
 		<version>1.3.0.RELEASE</version>
 	</parent>
 
+	<properties>
+		<gwt.version>2.7.0</gwt.version>
+	</properties>
+
 	<modules>
+		<module>voteria-common</module>
 		<module>voteria-client</module>
 		<module>voteria-server</module>
-		<module>voteria-common</module>
 	</modules>
 </project>
