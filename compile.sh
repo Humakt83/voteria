@@ -1,6 +1,7 @@
 #!/bin/bash
+cd voteria-common/
 mvn clean install
-cd voteria-client/
+cd ../voteria-client/
 mvn gwt:compile
 cd ../voteria-server
-mvn verify
+mvn clean verify

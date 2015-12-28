@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='voteria'>
 	<!-- Inherit the core Web Toolkit stuff. -->
-	<inherits name='com.google.gwt.user.User' />
+<module rename-to="voteria">
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.web.bindery.autobean.AutoBean" />
+	<inherits name="com.google.gwt.http.HTTP" />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
-	<inherits name='com.google.gwt.user.theme.clean.Clean' />
+	<inherits name="com.google.gwt.user.theme.clean.Clean" />
 	
-	<inherits name="com.google.gwt.http.HTTP" />
 
 	<!-- Other module inherits -->
-
+	<inherits name="fi.ukkosnetti.voteria.common.VoteriaCommon" />
+	
 	<!-- Specify the app entry point class. -->
-	<entry-point class='fi.ukkosnetti.voteria.client.Voteria' />
+	<entry-point class="fi.ukkosnetti.voteria.client.Voteria" />
 	
 	<!-- Specify the paths for translatable code -->
-	<source path='client' />
+	<source path="client" />
 
 </module>

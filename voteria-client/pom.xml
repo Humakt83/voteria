@@ -36,6 +36,7 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
+							<goal>resources</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -43,6 +44,9 @@
 					<modules>
             			<module>fi.ukkosnetti.voteria.Voteria</module>
           			</modules>
+          			<compileSourcesArtifacts>
+						<compileSourcesArtifact>fi.ukkosnetti:voteria-common</compileSourcesArtifact>
+					</compileSourcesArtifacts>
 					<runTarget>Voteria.html</runTarget>
 					<persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
 					<deploy>${project.build.directory}/gwt-deploy</deploy>
