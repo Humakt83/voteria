@@ -41,5 +41,10 @@ public class BallotCreateDTO implements BallotCreate {
 	public void setOptions(List<String> options) {
 		this.options = options;
 	}
+
+	@Override
+	public String toString() {
+		return "BallotCreateDTO [title=" + title + ", ends=" + ends + ", options=" + options + "]";
+	}
 	
 }

@@ -2,6 +2,7 @@ package fi.ukkosnetti.voteria.client.ballot;
 
 import java.util.Date;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -18,9 +19,10 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import fi.ukkosnetti.voteria.client.rest.BallotRestService;
 import fi.ukkosnetti.voteria.client.rest.RestResultHandler;
 import fi.ukkosnetti.voteria.common.dto.BallotCreate;
-import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 
 public class BallotCreatePopup extends DialogBox implements RestResultHandler<Long> {
+	
+	private BallotFactory factory = GWT.create(BallotFactory.class);
 	
 	private TextBox title = new TextBox();
 	private DateBox endDate = new DateBox();
@@ -88,7 +90,7 @@ public class BallotCreatePopup extends DialogBox implements RestResultHandler<Lo
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				BallotCreate dto = new BallotCreateDTO();
+				BallotCreate dto = factory.createBallot().as();
 				dto.setEnds(endDate.getValue());
 				dto.setTitle(title.getText());
 				BallotRestService.createBallot(dto, BallotCreatePopup.this);
