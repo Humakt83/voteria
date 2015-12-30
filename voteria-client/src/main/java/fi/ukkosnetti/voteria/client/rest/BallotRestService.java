@@ -1,6 +1,5 @@
 package fi.ukkosnetti.voteria.client.rest;
 
-import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;

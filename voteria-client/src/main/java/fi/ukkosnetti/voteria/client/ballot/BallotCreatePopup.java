@@ -1,7 +1,11 @@
 package fi.ukkosnetti.voteria.client.ballot;
 
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,6 +24,7 @@ public class BallotCreatePopup extends DialogBox implements RestResultHandler<Lo
 	
 	private TextBox title = new TextBox();
 	private DateBox endDate = new DateBox();
+	private Button submitButton;
 	
 	public BallotCreatePopup() {
 		super();
@@ -39,13 +44,34 @@ public class BallotCreatePopup extends DialogBox implements RestResultHandler<Lo
 		HorizontalPanel panel = new HorizontalPanel();
 		panel.add(new Label("Date ballot ends"));
 		panel.add(endDate);
+		endDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				submitButton.setEnabled(isBallotValid());
+			}
+			
+		});
 		return panel;
+	}
+	
+	private boolean isBallotValid() {
+		String titleText = title.getText();
+		return endDate.getValue() != null && titleText != null && !titleText.trim().isEmpty();
 	}
 
 	private Widget titlePanel() {
 		HorizontalPanel panel = new HorizontalPanel();
 		panel.add(new Label("Title"));
 		panel.add(title);
+		title.addValueChangeHandler(new ValueChangeHandler<String>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				submitButton.setEnabled(isBallotValid());
+			}
+			
+		});
 		return panel;
 	}
 
@@ -58,7 +84,7 @@ public class BallotCreatePopup extends DialogBox implements RestResultHandler<Lo
 				BallotCreatePopup.this.hide();
 			}
 		}));
-		Button submitButton = new Button("Submit", new ClickHandler() {
+		submitButton = new Button("Submit", new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
