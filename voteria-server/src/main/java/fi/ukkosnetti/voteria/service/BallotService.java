@@ -1,5 +1,9 @@
 package fi.ukkosnetti.voteria.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,14 @@ public class BallotService {
 	public BallotDTO get(Long id) {
 		Ballot ballot = repository.findOne(id);
 		return mapper.convertValue(ballot, BallotDTO.class);		
+	}
+	
+	public List<BallotDTO> all() {
+		List<Ballot> ballots = new ArrayList<>();
+		repository.findAll().forEach(ballots::add);
+		return ballots.stream()
+				.map(ballot -> mapper.convertValue(ballot, BallotDTO.class))
+				.collect(Collectors.toList());
 	}
 	
 }

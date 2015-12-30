@@ -1,5 +1,7 @@
 package fi.ukkosnetti.voteria.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.ukkosnetti.voteria.common.dto.BallotCreate;
 import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.service.BallotService;
@@ -31,5 +32,10 @@ public class BallotController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody BallotDTO get(@PathVariable("id") Long id) {
 		return service.get(id);
+	}
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<BallotDTO> all() {
+		return service.all();
 	}
 }
