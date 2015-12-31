@@ -29,6 +29,7 @@ public class BallotCreatePopup extends DialogBox {
 	private TextBox title = new TextBox();
 	private DateBox endDate = new DateBox();
 	private Button submitButton;
+	private BallotOptionsList options = new BallotOptionsList();
 	
 	public BallotCreatePopup() {
 		super();
@@ -40,6 +41,7 @@ public class BallotCreatePopup extends DialogBox {
 		VerticalPanel container = new VerticalPanel();
 		container.add(titlePanel());
 		container.add(endDatePanel());
+		container.add(options);
 		container.add(buttonPanel());
 		this.setWidget(container);		
 	}
@@ -95,6 +97,7 @@ public class BallotCreatePopup extends DialogBox {
 				BallotCreateDTO dto = new BallotCreateDTO();
 				dto.setEnds(endDate.getValue());
 				dto.setTitle(title.getText());
+				dto.setOptions(options.getOptions());
 				service.create(dto, new MethodCallback<Long>() {
 
 					@Override

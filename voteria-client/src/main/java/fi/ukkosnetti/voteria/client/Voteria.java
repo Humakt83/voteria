@@ -1,5 +1,6 @@
 package fi.ukkosnetti.voteria.client;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.fusesource.restygwt.client.Method;
@@ -37,7 +38,7 @@ public class Voteria implements EntryPoint {
 
 	private Widget ballotList() {
 		cellList = new CellList<>(new TextCell());
-		final ListDataProvider<String> dataProvider = new ListDataProvider<String>();
+		final ListDataProvider<String> dataProvider = new ListDataProvider<String>(Arrays.asList("Test"));
 		dataProvider.addDataDisplay(cellList);
 		service.all(new MethodCallback<List<BallotDTO>>() {
 
@@ -49,11 +50,12 @@ public class Voteria implements EntryPoint {
 			@Override
 			public void onSuccess(Method method, List<BallotDTO> response) {
 				List<String> ballots = dataProvider.getList();
-				ballots.clear();
 				for (BallotDTO dto : response) {
 					ballots.add(dto.getTitle());
 				}
+				dataProvider.setList(ballots);
 				dataProvider.refresh();
+				dataProvider.flush();
 			}
 		});
 		VerticalPanel panel = new VerticalPanel();
