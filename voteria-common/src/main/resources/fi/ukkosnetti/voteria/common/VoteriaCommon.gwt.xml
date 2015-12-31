@@ -3,4 +3,5 @@
 <module>
   <inherits name="com.google.gwt.resources.Resources" />
   <source path="dto" />
+  <source path="rest" />
 </module>

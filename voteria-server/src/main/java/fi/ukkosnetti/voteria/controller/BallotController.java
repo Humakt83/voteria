@@ -18,7 +18,7 @@ import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.service.BallotService;
 
 @RestController
-@RequestMapping("ballot")
+@RequestMapping("voteria/ballot")
 public class BallotController {
 	
 	@Autowired

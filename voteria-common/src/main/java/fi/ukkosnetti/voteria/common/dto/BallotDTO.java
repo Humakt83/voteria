@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class BallotDTO implements Ballot {
+public class BallotDTO {
 	
 	private String title;
 	

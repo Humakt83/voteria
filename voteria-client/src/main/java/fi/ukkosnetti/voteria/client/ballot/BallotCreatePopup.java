@@ -2,6 +2,9 @@ package fi.ukkosnetti.voteria.client.ballot;
 
 import java.util.Date;
 
+import org.fusesource.restygwt.client.Method;
+import org.fusesource.restygwt.client.MethodCallback;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,13 +19,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 
-import fi.ukkosnetti.voteria.client.rest.BallotRestService;
-import fi.ukkosnetti.voteria.client.rest.RestResultHandler;
-import fi.ukkosnetti.voteria.common.dto.BallotCreate;
+import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
+import fi.ukkosnetti.voteria.common.rest.BallotRestService;
 
-public class BallotCreatePopup extends DialogBox implements RestResultHandler<Long> {
+public class BallotCreatePopup extends DialogBox {
 	
-	private BallotFactory factory = GWT.create(BallotFactory.class);
+	private BallotRestService service = GWT.create(BallotRestService.class);
 	
 	private TextBox title = new TextBox();
 	private DateBox endDate = new DateBox();
@@ -90,19 +92,28 @@ public class BallotCreatePopup extends DialogBox implements RestResultHandler<Lo
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				BallotCreate dto = factory.createBallot().as();
+				BallotCreateDTO dto = new BallotCreateDTO();
 				dto.setEnds(endDate.getValue());
 				dto.setTitle(title.getText());
-				BallotRestService.createBallot(dto, BallotCreatePopup.this);
+				service.create(dto, new MethodCallback<Long>() {
+
+					@Override
+					public void onFailure(Method method, Throwable exception) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Method method, Long response) {
+						BallotCreatePopup.this.hide();
+					}
+					
+				});
 			}
 		});
 		submitButton.setEnabled(false);
 		panel.add(submitButton);
 		return panel;
-	}
-
-	@Override
-	public void handleResult(Long result) {
 	}
 
 }

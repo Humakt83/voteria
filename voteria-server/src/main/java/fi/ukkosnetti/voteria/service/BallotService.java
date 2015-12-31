@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fi.ukkosnetti.voteria.common.dto.BallotCreate;
+import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.model.Ballot;
 import fi.ukkosnetti.voteria.repository.BallotRepository;
@@ -26,7 +26,7 @@ public class BallotService {
 	@Autowired
 	private ObjectMapper mapper;
 	
-	public Long create(BallotCreate dto, String ip) {
+	public Long create(BallotCreateDTO dto, String ip) {
 		Ballot ballot = mapper.convertValue(dto, Ballot.class);
 		ballot.setCreatorIp(ip);
 		return repository.save(ballot).getId();
