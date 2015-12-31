@@ -3,7 +3,6 @@ package fi.ukkosnetti.voteria.common.dto;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("serial")
 public class BallotCreateDTO {
 
 	private String title;
