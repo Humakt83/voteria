@@ -2,6 +2,8 @@ package fi.ukkosnetti.voteria.client;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
@@ -27,6 +29,7 @@ public class Voteria implements EntryPoint {
 
 	private BallotRestService service = GWT.create(BallotRestService.class);
 	private CellList<String> cellList;
+	private Logger logger = Logger.getLogger(Voteria.class.getName());
 	
 	@Override
 	public void onModuleLoad() {
@@ -56,6 +59,7 @@ public class Voteria implements EntryPoint {
 				dataProvider.setList(ballots);
 				dataProvider.refresh();
 				dataProvider.flush();
+				logger.log(Level.SEVERE, "Got ballots: " + response.size());
 			}
 		});
 		VerticalPanel panel = new VerticalPanel();

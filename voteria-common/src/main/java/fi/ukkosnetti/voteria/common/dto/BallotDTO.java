@@ -1,10 +1,13 @@
 package fi.ukkosnetti.voteria.common.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class BallotDTO {
+public class BallotDTO implements Serializable {
 	
+	private static final long serialVersionUID = -8890021546550286795L;
+
 	private String title;
 	
 	private Date created;
