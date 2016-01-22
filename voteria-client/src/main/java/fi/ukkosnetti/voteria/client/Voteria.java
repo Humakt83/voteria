@@ -1,10 +1,11 @@
 package fi.ukkosnetti.voteria.client;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.fusesource.restygwt.client.Defaults;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 
@@ -33,6 +34,7 @@ public class Voteria implements EntryPoint {
 	
 	@Override
 	public void onModuleLoad() {
+		Defaults.setDateFormat(null);
 		RootPanel panel = RootPanel.get();
 		panel.add(createNewBallotButton());
 		panel.add(searchBox());
@@ -41,18 +43,18 @@ public class Voteria implements EntryPoint {
 
 	private Widget ballotList() {
 		cellList = new CellList<>(new TextCell());
-		final ListDataProvider<String> dataProvider = new ListDataProvider<String>(Arrays.asList("Test"));
+		final ListDataProvider<String> dataProvider = new ListDataProvider<>();
 		dataProvider.addDataDisplay(cellList);
 		service.all(new MethodCallback<List<BallotDTO>>() {
 
 			@Override
 			public void onFailure(Method method, Throwable exception) {
-				
+				logger.log(Level.SEVERE, exception.getMessage());
 			}
 
 			@Override
 			public void onSuccess(Method method, List<BallotDTO> response) {
-				List<String> ballots = dataProvider.getList();
+				List<String> ballots = new ArrayList<>();
 				for (BallotDTO dto : response) {
 					ballots.add(dto.getTitle());
 				}
