@@ -21,13 +21,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 
-import fi.ukkosnetti.voteria.client.Voteria;
 import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 import fi.ukkosnetti.voteria.common.rest.BallotRestService;
 
 public class BallotCreatePopup extends DialogBox {
 	
-	private Logger logger = Logger.getLogger(Voteria.class.getName());
+	private Logger logger = Logger.getLogger(BallotCreatePopup.class.getName());
 	
 	private BallotRestService service = GWT.create(BallotRestService.class);
 	

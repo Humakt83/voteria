@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.model.Ballot;
+import fi.ukkosnetti.voteria.repository.BallotOptionRepository;
 import fi.ukkosnetti.voteria.repository.BallotRepository;
 
 @Service
@@ -24,14 +25,19 @@ public class BallotService {
 	private BallotRepository repository;
 	
 	@Autowired
+	private BallotOptionRepository optionRepository;
+	
+	@Autowired
 	private ObjectMapper mapper;
 	
 	public Long create(BallotCreateDTO dto, String ip) {
 		Ballot ballot = mapper.convertValue(dto, Ballot.class);
 		ballot.setCreatorIp(ip);
-		return repository.save(ballot).getId();
+		ballot = repository.save(ballot);
+		saveOptions(ballot);		
+		return ballot.getId();
 	}
-	
+
 	public BallotDTO get(Long id) {
 		Ballot ballot = repository.findOne(id);
 		return mapper.convertValue(ballot, BallotDTO.class);		
@@ -43,6 +49,13 @@ public class BallotService {
 		return ballots.stream()
 				.map(ballot -> mapper.convertValue(ballot, BallotDTO.class))
 				.collect(Collectors.toList());
+	}
+	
+	private void saveOptions(final Ballot ballot) {
+		ballot.getOptions().stream().map(option -> {
+			option.setBallot(ballot);
+			return option;
+		}).forEach(optionRepository::save);
 	}
 	
 }

@@ -9,7 +9,7 @@ public class BallotCreateDTO {
 	
 	private Date ends;
 	
-	private List<String> options;
+	private List<BallotOptionCreateDTO> options;
 	
 	public String getTitle() {
 		return title;
@@ -27,14 +27,14 @@ public class BallotCreateDTO {
 		this.ends = ends;
 	}
 	
-	public List<String> getOptions() {
+	public List<BallotOptionCreateDTO> getOptions() {
 		return options;
 	}
 	
-	public void setOptions(List<String> options) {
+	public void setOptions(List<BallotOptionCreateDTO> options) {
 		this.options = options;
 	}
-
+	
 	public String toString() {
 		return "BallotCreateDTO [title=" + title + ", ends=" + ends + ", options=" + options + "]";
 	}

@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BallotOption {
 	
@@ -17,6 +19,7 @@ public class BallotOption {
 	
 	private Long votes;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Ballot ballot;
 

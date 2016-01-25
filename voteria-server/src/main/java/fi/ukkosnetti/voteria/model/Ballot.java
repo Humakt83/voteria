@@ -26,7 +26,7 @@ public class Ballot {
 	private String creatorIp;
 
 	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
-	private Set<BallotOption> options;
+	private Set<BallotOption> options = new HashSet<>();
 	
 	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
 	private Set<Voter> voters = new HashSet<>();
