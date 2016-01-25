@@ -14,8 +14,11 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -30,8 +33,9 @@ public class Voteria implements EntryPoint {
 
 	private BallotRestService service = GWT.create(BallotRestService.class);
 	private CellList<String> cellList;
+	private ListDataProvider<String> ballotProvider;
 	private Logger logger = Logger.getLogger(Voteria.class.getName());
-	
+
 	@Override
 	public void onModuleLoad() {
 		Defaults.setDateFormat(null);
@@ -43,8 +47,15 @@ public class Voteria implements EntryPoint {
 
 	private Widget ballotList() {
 		cellList = new CellList<>(new TextCell());
-		final ListDataProvider<String> dataProvider = new ListDataProvider<>();
-		dataProvider.addDataDisplay(cellList);
+		ballotProvider = new ListDataProvider<>();
+		ballotProvider.addDataDisplay(cellList);
+		getBallots();
+		VerticalPanel panel = new VerticalPanel();
+		panel.add(cellList);
+		return panel;
+	}
+
+	private void getBallots() {
 		service.all(new MethodCallback<List<BallotDTO>>() {
 
 			@Override
@@ -58,27 +69,32 @@ public class Voteria implements EntryPoint {
 				for (BallotDTO dto : response) {
 					ballots.add(dto.getTitle());
 				}
-				dataProvider.setList(ballots);
-				dataProvider.refresh();
-				dataProvider.flush();
+				ballotProvider.setList(ballots);
+				ballotProvider.refresh();
+				ballotProvider.flush();
 				logger.log(Level.INFO, "Got ballots: " + response.size());
 			}
 		});
-		VerticalPanel panel = new VerticalPanel();
-		panel.add(cellList);
-		return panel;
 	}
 
 	private Button createNewBallotButton() {
 		return new Button("New Ballot", new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				new BallotCreatePopup().show();
+				BallotCreatePopup popup = new BallotCreatePopup();
+				popup.addCloseHandler(new CloseHandler<PopupPanel>() {
+
+					@Override
+					public void onClose(CloseEvent<PopupPanel> event) {
+						getBallots();
+					}
+				});
+				popup.show();
 			}
 		});
 	}
-	
+
 	private TextBox searchBox() {
 		TextBox searchBox =  new TextBox();
 		searchBox.setText("");
