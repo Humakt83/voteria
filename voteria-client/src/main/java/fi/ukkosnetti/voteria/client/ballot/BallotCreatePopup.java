@@ -1,6 +1,8 @@
 package fi.ukkosnetti.voteria.client.ballot;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
@@ -19,10 +21,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import fi.ukkosnetti.voteria.client.Voteria;
 import fi.ukkosnetti.voteria.common.dto.BallotCreateDTO;
 import fi.ukkosnetti.voteria.common.rest.BallotRestService;
 
 public class BallotCreatePopup extends DialogBox {
+	
+	private Logger logger = Logger.getLogger(Voteria.class.getName());
 	
 	private BallotRestService service = GWT.create(BallotRestService.class);
 	
@@ -102,8 +107,7 @@ public class BallotCreatePopup extends DialogBox {
 
 					@Override
 					public void onFailure(Method method, Throwable exception) {
-						// TODO Auto-generated method stub
-						
+						logger.log(Level.SEVERE, "Exception while creating ballot", exception);
 					}
 
 					@Override

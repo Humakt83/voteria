@@ -1,5 +1,6 @@
 package fi.ukkosnetti.voteria.client.ballot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.cell.client.TextCell;
@@ -31,8 +32,9 @@ public class BallotOptionsList extends VerticalPanel {
 			public void onClick(ClickEvent event) {
 				String optionName = optionBox.getName();
 				if (null != optionName && !optionName.trim().isEmpty()) {
-					List<String> options = optionProvider.getList();
+					List<String> options = new ArrayList<>();
 					options.add(optionName.trim());
+					optionProvider.setList(options);
 					optionProvider.refresh();
 					optionProvider.flush();
 				}

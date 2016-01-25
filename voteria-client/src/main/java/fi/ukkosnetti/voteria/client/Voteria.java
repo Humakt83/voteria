@@ -61,7 +61,7 @@ public class Voteria implements EntryPoint {
 				dataProvider.setList(ballots);
 				dataProvider.refresh();
 				dataProvider.flush();
-				logger.log(Level.SEVERE, "Got ballots: " + response.size());
+				logger.log(Level.INFO, "Got ballots: " + response.size());
 			}
 		});
 		VerticalPanel panel = new VerticalPanel();
