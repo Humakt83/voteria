@@ -21,3 +21,41 @@
 	padding: 20px;
 	margin-right: 5px;
 }
+
+.voteria-title {
+	color: white;
+	font-size: 500%;
+	font-weight: bold;
+	font-family: "comic sans";
+}
+
+.titlepanel {
+	border-radius: 25px;
+	border: 5px solid #73AD21;
+	padding: 20px;
+	margin-right: 15px;
+	background-color: #73AD21;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.memopanel {
+	font-family: "comic sans";
+	padding: 5px;
+	padding-top: 25px;
+}
+
+.memo-img {
+	background-image: src("cafelogo.png");
+	width: 20px;
+}
+
+.memo1 {
+	margin-left: 20px;
+	font-size: 150%;
+}
+
+.memo2 {
+	margin-top: 10px;
+	font-size: 150%;
+}

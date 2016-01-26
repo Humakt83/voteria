@@ -19,6 +19,8 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -51,7 +53,32 @@ public class Voteria implements EntryPoint {
 		hPanel.add(ballotView);
 		hPanel.setStyleName("row");
 		panel.setStyleName("container-fluid main-container");
+		panel.add(titlePanel());
 		panel.add(hPanel);
+	}
+
+	private FlowPanel titlePanel() {
+		FlowPanel titleContainer = new FlowPanel();
+		FlowPanel titlePanel = new FlowPanel();
+		Label title = new Label("Voteria");
+		title.setStyleName("voteria-title");
+		titlePanel.add(title);		
+		titlePanel.setStyleName("col-md-3 titlepanel");
+		FlowPanel voteriaMemoPanel = new FlowPanel();
+		Label memoPart1 = new Label("Have a ");
+		HTML image = new HTML();
+		image.setStyleName("memo-img");
+		Label memoPart2 = new Label("and vote");
+		memoPart1.setStyleName("memo1");
+		memoPart2.setStyleName("memo2");
+		voteriaMemoPanel.add(memoPart1);
+		voteriaMemoPanel.add(image);
+		voteriaMemoPanel.add(memoPart2);
+		voteriaMemoPanel.setStyleName("col-md-3 memopanel");
+		titleContainer.add(titlePanel);
+		titleContainer.add(voteriaMemoPanel);
+		titleContainer.setStyleName("row");
+		return titleContainer;
 	}
 
 	private FlowPanel leftVerticalPanel() {
