@@ -8,3 +8,16 @@
 	border: 1px solid red; 
 	padding: 4px; 
 }
+
+.ballot-header {
+	font-size: 200%;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+.col-md-4, .col-md-7 {
+	border-radius: 25px;
+	border: 5px solid #73AD21;
+	padding: 20px;
+	margin-right: 5px;
+}

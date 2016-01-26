@@ -18,7 +18,7 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -46,17 +46,20 @@ public class Voteria implements EntryPoint {
 		ballotView = new BallotView();
 		Defaults.setDateFormat(null);
 		RootPanel panel = RootPanel.get();
-		HorizontalPanel hPanel = new HorizontalPanel();
+		FlowPanel hPanel = new FlowPanel();
 		hPanel.add(leftVerticalPanel());
-		hPanel.add(ballotView);		
+		hPanel.add(ballotView);
+		hPanel.setStyleName("row");
+		panel.setStyleName("container-fluid main-container");
 		panel.add(hPanel);
 	}
 
-	private VerticalPanel leftVerticalPanel() {
-		VerticalPanel vPanel = new VerticalPanel();
+	private FlowPanel leftVerticalPanel() {
+		FlowPanel vPanel = new FlowPanel();
 		vPanel.add(createNewBallotButton());
 		vPanel.add(searchBox());
 		vPanel.add(ballotList());
+		vPanel.setStyleName("col-md-4");
 		return vPanel;
 	}
 
@@ -119,7 +122,7 @@ public class Voteria implements EntryPoint {
 	}
 
 	private Button createNewBallotButton() {
-		return new Button("New Ballot", new ClickHandler() {
+		Button button = new Button("New Ballot", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -134,6 +137,8 @@ public class Voteria implements EntryPoint {
 				popup.show();
 			}
 		});
+		button.setStyleName("btn btn-primary");
+		return button;
 	}
 
 	private TextBox searchBox() {

@@ -11,8 +11,8 @@ import org.fusesource.restygwt.client.MethodCallback;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -21,7 +21,7 @@ import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.common.dto.BallotOptionDTO;
 import fi.ukkosnetti.voteria.common.rest.VoteRestService;
 
-public class BallotView extends VerticalPanel {
+public class BallotView extends FlowPanel {
 
 	private Logger logger = Logger.getLogger(BallotView.class.getName());
 	private VoteRestService service = GWT.create(VoteRestService.class);
@@ -32,6 +32,7 @@ public class BallotView extends VerticalPanel {
 	
 	@Override
 	protected void onLoad() {
+		title.setStyleName("ballot-header");
 		this.add(title);
 		this.add(closesLabel);
 		options = new CellList<>(new TextCell());
@@ -48,6 +49,7 @@ public class BallotView extends VerticalPanel {
 		optionProvider = new ListDataProvider<>();
 		optionProvider.addDataDisplay(options);
 		this.add(options);
+		this.setStyleName("col-md-7");
 	}
 	
 	public void setBallot(BallotDTO ballot) {
