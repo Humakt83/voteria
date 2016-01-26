@@ -57,5 +57,9 @@ public class BallotService {
 			return option;
 		}).forEach(optionRepository::save);
 	}
+
+	public BallotDTO getByTitle(String title) {
+		return mapper.convertValue(repository.findByTitle(title), BallotDTO.class);
+	}
 	
 }

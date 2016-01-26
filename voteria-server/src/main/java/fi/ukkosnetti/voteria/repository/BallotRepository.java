@@ -6,4 +6,5 @@ import fi.ukkosnetti.voteria.model.Ballot;
 
 public interface BallotRepository extends CrudRepository<Ballot, Long> {
 
+	Ballot findByTitle(String title);
 }

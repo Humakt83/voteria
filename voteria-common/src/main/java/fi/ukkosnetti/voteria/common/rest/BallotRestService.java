@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
@@ -21,4 +22,8 @@ public interface BallotRestService extends RestService {
 	@GET
 	@Path("ballot/all")
 	public void all(MethodCallback<List<BallotDTO>> callback);
+	
+	@GET
+	@Path("ballot/bytitle/{title}")
+	public void getByTitle(@PathParam("title") String title, MethodCallback<BallotDTO> callback);
 }

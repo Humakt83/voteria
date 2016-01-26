@@ -34,6 +34,11 @@ public class BallotController {
 		return service.get(id);
 	}
 	
+	@RequestMapping(value = "/bytitle/{title}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody BallotDTO get(@PathVariable("title") String title) {
+		return service.getByTitle(title);
+	}
+	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<BallotDTO> all() {
 		return service.all();
