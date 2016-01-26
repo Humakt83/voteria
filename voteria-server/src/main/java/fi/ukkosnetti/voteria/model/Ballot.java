@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Ballot {
 
@@ -28,6 +30,7 @@ public class Ballot {
 	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
 	private Set<BallotOption> options = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="ballot", fetch = FetchType.LAZY)
 	private Set<Voter> voters = new HashSet<>();
 	

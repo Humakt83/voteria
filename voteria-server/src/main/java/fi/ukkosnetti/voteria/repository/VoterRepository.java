@@ -6,4 +6,6 @@ import fi.ukkosnetti.voteria.model.Voter;
 
 public interface VoterRepository extends CrudRepository<Voter, Long> {
 
+	Voter findByIp(String ip);
+	
 }

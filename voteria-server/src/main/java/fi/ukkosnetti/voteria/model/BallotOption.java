@@ -17,7 +17,7 @@ public class BallotOption {
 	
 	private String optionName;
 	
-	private Long votes;
+	private Long votes = 0l;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -46,7 +46,7 @@ public class BallotOption {
 	public void setVotes(Long votes) {
 		this.votes = votes;
 	}
-
+	
 	public Ballot getBallot() {
 		return ballot;
 	}
