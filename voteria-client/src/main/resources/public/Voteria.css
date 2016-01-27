@@ -63,3 +63,10 @@
 	margin-top: 10px;
 	font-size: 150%;
 }
+
+.ballot-list {
+	margin-left: 15px;
+	padding: 10px;
+	font-size: 130%;
+	font-weight: bolder;
+}

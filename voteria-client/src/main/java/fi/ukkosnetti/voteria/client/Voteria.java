@@ -92,6 +92,7 @@ public class Voteria implements EntryPoint {
 
 	private Widget ballotList() {
 		cellList = new CellList<>(new TextCell());
+		cellList.setStyleName("ballot-list");
 		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<>();
 	    cellList.setSelectionModel(selectionModel);
 	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
