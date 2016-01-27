@@ -139,7 +139,7 @@ public class Voteria implements EntryPoint {
 			}
 
 			@Override
-			public void onSuccess(Method method, BallotDTO response) {
+			public void onSuccess(Method method, BallotDTO response) {				
 				ballotView.setBallot(response);
 			}
 			

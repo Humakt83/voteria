@@ -8,8 +8,15 @@ import java.util.logging.Logger;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safecss.shared.SafeStyles;
+import com.google.gwt.safecss.shared.SafeStylesUtils;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -17,6 +24,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import fi.ukkosnetti.voteria.client.ballot.result.OptionResult;
+import fi.ukkosnetti.voteria.client.ballot.result.Result;
+import fi.ukkosnetti.voteria.client.ballot.result.ResultCalculator;
 import fi.ukkosnetti.voteria.common.dto.BallotDTO;
 import fi.ukkosnetti.voteria.common.dto.BallotOptionDTO;
 import fi.ukkosnetti.voteria.common.rest.VoteRestService;
@@ -29,12 +39,13 @@ public class BallotView extends FlowPanel {
 	private Label closesLabel = new Label();
 	private CellList<String> options;
 	private ListDataProvider<String> optionProvider;
+	private FlowPanel votePanel = new FlowPanel();
 	
 	@Override
 	protected void onLoad() {
 		title.setStyleName("ballot-header");
-		this.add(title);
-		this.add(closesLabel);
+		votePanel.add(title);
+		votePanel.add(closesLabel);
 		options = new CellList<>(new TextCell());
 		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<>();
 		options.setSelectionModel(selectionModel);
@@ -48,7 +59,8 @@ public class BallotView extends FlowPanel {
 	    });
 		optionProvider = new ListDataProvider<>();
 		optionProvider.addDataDisplay(options);
-		this.add(options);
+		votePanel.add(options);
+		this.add(votePanel);
 		this.setStyleName("col-md-7");
 	}
 	
@@ -63,7 +75,7 @@ public class BallotView extends FlowPanel {
 	}
 	
 	private void castVote(String option) {
-		service.vote(title.getText(), option, new MethodCallback<Void>() {
+		service.vote(title.getText(), option, new MethodCallback<BallotDTO>() {
 
 			@Override
 			public void onFailure(Method method, Throwable exception) {
@@ -71,11 +83,45 @@ public class BallotView extends FlowPanel {
 			}
 
 			@Override
-			public void onSuccess(Method method, Void response) {
+			public void onSuccess(Method method, BallotDTO response) {
 				logger.log(Level.INFO, "Vote was cast");
+				showResults(response);
 			}
 			
 		});
+	}
+	
+	private void showResults(BallotDTO dto) {		
+		Result result = ResultCalculator.calculateResults(dto);
+		FlowPanel resultPanel = new FlowPanel();
+		CellList<OptionResult> resultList = new CellList<>(new ResultCell());
+		resultList.setRowData(0, result.optionResults);
+		resultPanel.add(resultList);
+		this.add(resultPanel);		
+		votePanel.setVisible(false);
+	}
+	
+	static class ResultCell extends AbstractCell<OptionResult> {
+		
+		interface Templates extends SafeHtmlTemplates {
+			
+			@SafeHtmlTemplates.Template("<div>{0}</div><div style=\"{1}\">{2}</div>")
+			SafeHtml cell(SafeHtml option, SafeStyles percentageStyle, SafeHtml votesAmount);
+		}
+		
+		private static Templates templates = GWT.create(Templates.class);
+		
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context, OptionResult value, SafeHtmlBuilder sb) {
+			if (value == null) {
+				return;
+			}
+			SafeHtml option = SafeHtmlUtils.fromTrustedString(value.optionName);
+			SafeHtml voteAmount = SafeHtmlUtils.fromTrustedString(value.totalVotes.toString());
+			SafeStyles percentageStyle = SafeStylesUtils.fromTrustedString("height: 10px; background-color: green; width: " + value.percentageOfVotes + "px;");
+			sb.append(templates.cell(option, percentageStyle, voteAmount));
+		}
+		
 	}
 	
 }
