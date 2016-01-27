@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -49,7 +48,7 @@ public class Voteria implements EntryPoint {
 		Defaults.setDateFormat(null);
 		RootPanel panel = RootPanel.get();
 		FlowPanel hPanel = new FlowPanel();
-		hPanel.add(leftVerticalPanel());
+		hPanel.add(leftPanel());
 		hPanel.add(ballotView);
 		hPanel.setStyleName("row");
 		panel.setStyleName("container-fluid main-container");
@@ -81,7 +80,7 @@ public class Voteria implements EntryPoint {
 		return titleContainer;
 	}
 
-	private FlowPanel leftVerticalPanel() {
+	private FlowPanel leftPanel() {
 		FlowPanel vPanel = new FlowPanel();
 		vPanel.add(createNewBallotButton());
 		vPanel.add(searchBox());
@@ -106,9 +105,7 @@ public class Voteria implements EntryPoint {
 		ballotProvider = new ListDataProvider<>();
 		ballotProvider.addDataDisplay(cellList);
 		getBallots();
-		VerticalPanel panel = new VerticalPanel();
-		panel.add(cellList);
-		return panel;
+		return cellList;
 	}
 
 	private void getBallots() {
