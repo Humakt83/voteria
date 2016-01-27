@@ -46,8 +46,12 @@
 }
 
 .memo-img {
-	background-image: src("cafelogo.png");
-	width: 20px;
+	background-image: url("cafelogo.png");
+	width: 37px;
+	height: 50px;
+	float: right;
+	margin-top: -30px;
+	margin-right: 55%;
 }
 
 .memo1 {
