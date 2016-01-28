@@ -2,6 +2,7 @@ package fi.ukkosnetti.voteria.client.ballot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +46,8 @@ public class BallotView extends FlowPanel {
 	private FlowPanel votePanel = new FlowPanel();
 	private Button resultsButton = new Button("Show results");
 	private BallotDTO ballot;
+	private static final Random RANDOM = new Random();
+	
 	
 	@Override
 	protected void onLoad() {
@@ -57,6 +60,7 @@ public class BallotView extends FlowPanel {
 				showResults(ballot);
 			}
 		});
+		resultsButton.setStyleName("btn-sm btn-info");
 		resultsButton.setEnabled(false);
 		votePanel.add(closesLabel);
 		votePanel.add(resultsButton);
@@ -134,8 +138,21 @@ public class BallotView extends FlowPanel {
 			}
 			SafeHtml option = SafeHtmlUtils.fromTrustedString(value.optionName);
 			SafeHtml voteAmount = SafeHtmlUtils.fromTrustedString(value.totalVotes.toString());
-			SafeStyles percentageStyle = SafeStylesUtils.fromTrustedString("height: 10px; background-color: green; width: " + value.percentageOfVotes + "px;");
+			SafeStyles percentageStyle = SafeStylesUtils.fromTrustedString(formStyle(value.percentageOfVotes));
 			sb.append(templates.cell(option, percentageStyle, voteAmount));
+		}
+		
+		private String formStyle(Double percentageOfVotes) {
+			StringBuilder sb = new StringBuilder("height: 10px; background-color: rgb(");
+			sb.append(RANDOM.nextInt(255));
+			sb.append(",");
+			sb.append(RANDOM.nextInt(255));
+			sb.append(",");
+			sb.append(RANDOM.nextInt(255));
+			sb.append("); width: ");
+			sb.append(percentageOfVotes);
+			sb.append("px;");
+			return sb.toString();
 		}
 		
 	}
