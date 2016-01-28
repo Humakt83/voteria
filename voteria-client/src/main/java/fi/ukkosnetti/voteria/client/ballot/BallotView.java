@@ -11,6 +11,8 @@ import org.fusesource.restygwt.client.MethodCallback;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesUtils;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
@@ -18,6 +20,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.ListDataProvider;
@@ -40,12 +43,23 @@ public class BallotView extends FlowPanel {
 	private CellList<String> options;
 	private ListDataProvider<String> optionProvider;
 	private FlowPanel votePanel = new FlowPanel();
+	private Button resultsButton = new Button("Show results");
+	private BallotDTO ballot;
 	
 	@Override
 	protected void onLoad() {
 		title.setStyleName("ballot-header");
-		votePanel.add(title);
+		this.add(title);
+		resultsButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				showResults(ballot);
+			}
+		});
+		resultsButton.setEnabled(false);
 		votePanel.add(closesLabel);
+		votePanel.add(resultsButton);
 		options = new CellList<>(new TextCell());
 		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<>();
 		options.setSelectionModel(selectionModel);
@@ -65,6 +79,7 @@ public class BallotView extends FlowPanel {
 	}
 	
 	public void setBallot(BallotDTO ballot) {
+		this.ballot = ballot;
 		title.setText(ballot.getTitle());
 		closesLabel.setText(ballot.getEnds().toString());
 		List<String> options = new ArrayList<>();
@@ -72,6 +87,7 @@ public class BallotView extends FlowPanel {
 			options.add(option.getOptionName());
 		}
 		optionProvider.setList(options);
+		resultsButton.setEnabled(true);
 	}
 	
 	private void castVote(String option) {
