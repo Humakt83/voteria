@@ -125,7 +125,7 @@ public class BallotView extends FlowPanel {
 		
 		interface Templates extends SafeHtmlTemplates {
 			
-			@SafeHtmlTemplates.Template("<div>{0}</div><div style=\"{1}\">{2}</div>")
+			@SafeHtmlTemplates.Template("<div>{0}</div><div class=\"option-result\" style=\"{1}\">{2}</div>")
 			SafeHtml cell(SafeHtml option, SafeStyles percentageStyle, SafeHtml votesAmount);
 		}
 		
@@ -143,7 +143,7 @@ public class BallotView extends FlowPanel {
 		}
 		
 		private String formStyle(Double percentageOfVotes) {
-			StringBuilder sb = new StringBuilder("height: 10px; background-color: rgb(");
+			StringBuilder sb = new StringBuilder("background-color: rgb(");
 			sb.append(RANDOM.nextInt(255));
 			sb.append(",");
 			sb.append(RANDOM.nextInt(255));
