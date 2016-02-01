@@ -73,7 +73,8 @@
 
 .option-result {
 	color: #73AD21;
-	text-shadow: 3px 3px 5px black;
+	text-shadow: 1px 1px 1px black;
 	height: 10px;
 	margin-bottom: 2px;
+	font-weight: bold;
 }
