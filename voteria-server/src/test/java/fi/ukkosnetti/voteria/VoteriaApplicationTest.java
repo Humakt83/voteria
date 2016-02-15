@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import fi.ukkosnetti.supercoveragetest.SuperCoverageTest;
+import fi.ukkosnetti.coverage.Coverager;
+
+
 
 public class VoteriaApplicationTest {
 
 	@Test
 	public void testAll() throws IOException {
-		SuperCoverageTest.testAllPrintFiles();
+		new Coverager().coverage();
 	}
 }
